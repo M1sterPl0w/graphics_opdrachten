@@ -18,3 +18,13 @@ C:\Users\Jeroen\Desktop\GP\CG\Lecture3 - 3D\Lecture3\obj\Debug\Lecture3.csproj.G
 C:\Users\Jeroen\Desktop\GP\CG\Lecture3 - 3D\Lecture3\obj\Debug\Lecture3.csproj.CoreCompileInputs.cache
 C:\Users\Jeroen\Desktop\GP\CG\Lecture3 - 3D\Lecture3\obj\Debug\Lecture3.exe
 C:\Users\Jeroen\Desktop\GP\CG\Lecture3 - 3D\Lecture3\obj\Debug\Lecture3.pdb
+C:\Users\Jeroen\Desktop\graphics_opdrachten\Lecture3 - 3D\Lecture3\bin\Debug\Lecture3.exe.config
+C:\Users\Jeroen\Desktop\graphics_opdrachten\Lecture3 - 3D\Lecture3\bin\Debug\Lecture3.exe
+C:\Users\Jeroen\Desktop\graphics_opdrachten\Lecture3 - 3D\Lecture3\bin\Debug\Lecture3.pdb
+C:\Users\Jeroen\Desktop\graphics_opdrachten\Lecture3 - 3D\Lecture3\obj\Debug\Lecture3.csprojResolveAssemblyReference.cache
+C:\Users\Jeroen\Desktop\graphics_opdrachten\Lecture3 - 3D\Lecture3\obj\Debug\Lecture3.Form1.resources
+C:\Users\Jeroen\Desktop\graphics_opdrachten\Lecture3 - 3D\Lecture3\obj\Debug\Lecture3.Properties.Resources.resources
+C:\Users\Jeroen\Desktop\graphics_opdrachten\Lecture3 - 3D\Lecture3\obj\Debug\Lecture3.csproj.GenerateResource.Cache
+C:\Users\Jeroen\Desktop\graphics_opdrachten\Lecture3 - 3D\Lecture3\obj\Debug\Lecture3.csproj.CoreCompileInputs.cache
+C:\Users\Jeroen\Desktop\graphics_opdrachten\Lecture3 - 3D\Lecture3\obj\Debug\Lecture3.exe
+C:\Users\Jeroen\Desktop\graphics_opdrachten\Lecture3 - 3D\Lecture3\obj\Debug\Lecture3.pdb
