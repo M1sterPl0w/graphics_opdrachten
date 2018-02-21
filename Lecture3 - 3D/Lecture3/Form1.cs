@@ -28,7 +28,7 @@ namespace Lecture3
         float yRotation = 0;
         float zRotation = 0;
         double scale;
-        
+
         public Form1()
         {
             InitializeComponent();
@@ -41,6 +41,8 @@ namespace Lecture3
             c = new Cube(Color.Black);
             phase = 0;
             scale = 1;
+
+            SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
         }
 
         protected override void OnPaint(PaintEventArgs e)
