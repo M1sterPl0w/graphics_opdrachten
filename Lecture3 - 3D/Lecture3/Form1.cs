@@ -201,7 +201,7 @@ namespace Lecture3
 
         private void StartAnimation()
         {
-	        if (_phase != 0) return;
+            Reset();
 	        _timer = new System.Timers.Timer();
 	        _timer.Start();
 	        _phase = 1;
