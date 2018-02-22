@@ -1,46 +1,40 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Lecture3
 {
-    public partial class Form1 : Form
+	public partial class Form1 : Form
     {
-        AxisX x_axis;
-        AxisY y_axis;
-        AxisZ z_axis;
-        Cube c;
+        private AxisX _xAxis;
+	    private AxisY _yAxis;
+	    private AxisZ _zAxis;
+        private Cube _c;
 
-        int phase;
-        System.Timers.Timer s;
+	    private int _phase;
+	    private System.Timers.Timer _timer;
 
-        bool xRotationForward = true;
-        float xRotation = 0;
-        bool yRotationForward = true;
-        float yRotation = 0;
-        float zRotation = 0;
-        double scale;
+	    private bool _xRotationForward = true;
+	    private float _xRotation;
+	    private bool _yRotationForward = true;
+	    private float _yRotation;
+	    private float _zRotation;
+	    private double _scale;
 
         public Form1()
         {
             InitializeComponent();
-            this.Width = 800;
-            this.Height = 600;
+            Width = 800;
+            Height = 600;
 
-            x_axis = new AxisX(2);
-            y_axis = new AxisY(2);
-            z_axis = new AxisZ(2);
-            c = new Cube(Color.Black);
-            phase = 0;
-            scale = 1;
+            _xAxis = new AxisX(2);
+            _yAxis = new AxisY(2);
+            _zAxis = new AxisZ(2);
+            _c = new Cube(Color.Black);
+            _phase = 0;
+            _scale = 1;
 
             SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
         }
@@ -52,33 +46,33 @@ namespace Lecture3
 
             Start(e.Graphics);
 
-            this.PhiLabel.Text = Transformations.phi.ToString();
-            this.ThetaLabel.Text = Transformations.theta.ToString();
-            this.ScaleLabel.Text = Math.Round(scale, 2).ToString();
-            this.RotateXLabel.Text = xRotation.ToString();
-            this.RotateYLabel.Text = yRotation.ToString();
-            this.RotateZLabel.Text = zRotation.ToString();
-            this.RLabel.Text = Transformations.r.ToString();
-            this.DLabel.Text = Transformations.d.ToString();
+            PhiLabel.Text = Transformations.phi.ToString();
+            ThetaLabel.Text = Transformations.theta.ToString();
+            ScaleLabel.Text = Math.Round(_scale, 2).ToString();
+            RotateXLabel.Text = _xRotation.ToString();
+            RotateYLabel.Text = _yRotation.ToString();
+            RotateZLabel.Text = _zRotation.ToString();
+            RLabel.Text = Transformations.r.ToString();
+            DLabel.Text = Transformations.d.ToString();
 
-            vb = Transformations.ViewTransformation(c.vertexbuffer);
+            vb = Transformations.ViewTransformation(_c.Vertexbuffer);
             vb = Transformations.ProjectionTransformation(vb);
             vb = Transformations.ViewPortTransformation(800, 600, vb);
 
-            CalculateScale(c.vertexbuffer[0], c.vertexbuffer[1]);
-            c.Draw(e.Graphics, vb);
+            CalculateScale(_c.Vertexbuffer[0], _c.Vertexbuffer[1]);
+            _c.Draw(e.Graphics, vb);
         }
         
         private void CalculateScale(Vector a, Vector b)
         {
-            scale = Math.Sqrt(Math.Pow(b.x - a.x, 2) + Math.Pow(b.y - a.y, 2) + Math.Pow(b.z - a.z, 2)) - 1;
+            _scale = Math.Sqrt(Math.Pow(b.x - a.x, 2) + Math.Pow(b.y - a.y, 2) + Math.Pow(b.z - a.z, 2)) - 1;
         }
 
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
             if (keyData == Keys.Escape)
             {
-                this.Close();
+                Close();
                 return true;
             }
             return base.ProcessCmdKey(ref msg, keyData);
@@ -87,25 +81,25 @@ namespace Lecture3
         private void Start(Graphics g)
         {
             List<Vector> vb;
-            vb = Transformations.ViewTransformation(x_axis.vb);
+            vb = Transformations.ViewTransformation(_xAxis.vb);
             vb = Transformations.ProjectionTransformation(vb);
             vb = Transformations.ViewPortTransformation(800, 600, vb);
-            x_axis.Draw(g, vb);
+            _xAxis.Draw(g, vb);
 
-            vb = Transformations.ViewTransformation(y_axis.vb);
+            vb = Transformations.ViewTransformation(_yAxis.vb);
             vb = Transformations.ProjectionTransformation(vb);
             vb = Transformations.ViewPortTransformation(800, 600, vb);
-            y_axis.Draw(g, vb);
+            _yAxis.Draw(g, vb);
                 
-            vb = Transformations.ViewTransformation(z_axis.vb);
+            vb = Transformations.ViewTransformation(_zAxis.vb);
             vb = Transformations.ProjectionTransformation(vb);
             vb = Transformations.ViewPortTransformation(800, 600, vb);
-            z_axis.Draw(g, vb);
+            _zAxis.Draw(g, vb);
         }
 
-        private void ModelTrans(Func<float, Matrix> func, float degrees)
+        private void Transform(Func<float, Matrix> func, float value)
         {
-            c.vertexbuffer = c.vertexbuffer.Select(i => func(degrees) * i).ToList();
+            _c.Vertexbuffer = _c.Vertexbuffer.Select(i => func(value) * i).ToList();
         }
 
         private void Form1_KeyPress(object sender, KeyPressEventArgs e)
@@ -113,34 +107,34 @@ namespace Lecture3
             switch (e.KeyChar)
             {
                 case 'x':
-                    ModelTrans(Matrix.RotateX, 1);
-                    xRotation++;
+                    Transform(Matrix.RotateX, 1);
+                    _xRotation++;
                     break;
                 case 'X':
-                    ModelTrans(Matrix.RotateX, -1);
-                    xRotation--;
+                    Transform(Matrix.RotateX, -1);
+                    _xRotation--;
                     break;
                 case 'y':
-                    ModelTrans(Matrix.RotateY, 1);
-                    yRotation++;
+                    Transform(Matrix.RotateY, 1);
+                    _yRotation++;
                     break;
                 case 'Y':
-                    ModelTrans(Matrix.RotateY, -1);
-                    yRotation--;
+                    Transform(Matrix.RotateY, -1);
+                    _yRotation--;
                     break;
                 case 'z':
-                    ModelTrans(Matrix.RotateZ, 1);
-                    zRotation++;
+                    Transform(Matrix.RotateZ, 1);
+                    _zRotation++;
                     break;
                 case 'Z':
-                    ModelTrans(Matrix.RotateZ, -1);
-                    zRotation--;
+                    Transform(Matrix.RotateZ, -1);
+                    _zRotation--;
                     break;
                 case 's':
-                    ModelTrans(Matrix.Scale3D, 1.01f);
+                    Transform(Matrix.Scale3D, 1.01f);
                     break;
                 case 'S':
-                    ModelTrans(Matrix.Scale3D, 0.99f);
+                    Transform(Matrix.Scale3D, 0.99f);
                     break;
                 case 'c':
                     Reset();
@@ -189,117 +183,106 @@ namespace Lecture3
 
         private void Translate(Vector v)
         {
-            c.vertexbuffer = c.vertexbuffer.Select(i => Matrix.Translate(v) * i).ToList();
+            _c.Vertexbuffer = _c.Vertexbuffer.Select(i => Matrix.Translate(v) * i).ToList();
         }
 
         private void Reset()
         {
-            c = new Cube(Color.Black);
-            x_axis = new AxisX(2);
-            y_axis = new AxisY(2);
-            z_axis = new AxisZ(2);
+            _c = new Cube(Color.Black);
+            _xAxis = new AxisX(2);
+            _yAxis = new AxisY(2);
+            _zAxis = new AxisZ(2);
             Transformations.phi = -10;
             Transformations.theta = -100;
-            xRotation = 0;
-            yRotation = 0;
-            zRotation = 0;
+            _xRotation = 0;
+            _yRotation = 0;
+            _zRotation = 0;
         }
 
         private void StartAnimation()
         {
-            if (phase == 0)
-            {
-                s = new System.Timers.Timer();
-                s.Start();
-                phase = 1;
-                s.Interval = 50;
-                s.Elapsed += Animation;
-            }
+	        if (_phase != 0) return;
+	        _timer = new System.Timers.Timer();
+	        _timer.Start();
+	        _phase = 1;
+	        _timer.Interval = 50;
+	        _timer.Elapsed += Animation;
         }
 
         private void StopAnimation()
         {
-            if(phase != 0)
-            {
-                phase = 0;
-                Reset();
-            }
+	        if (_phase == 0) return;
+	        _phase = 0;
+	        Reset();
         }
+
         private void Animation(Object source, System.Timers.ElapsedEventArgs e)
         {
-            // Phase 1
-            if (phase == 1)
-            {
-                if (scale >= 1.5)
-                    phase = 2;
-                else
-                {
-                    ModelTrans(Matrix.Scale3D, 1.01f);
-                    Invalidate();
-                    Transformations.theta--;
-                }
-            }
-
-            // Phase 2
-            else if (phase == 2)
-            {
-                Transformations.theta--;
-                if (xRotationForward)
-                {
-                    xRotation++;
-                    ModelTrans(Matrix.RotateX, 1);
-                    if (xRotation == 45)
-                        xRotationForward = false;
-                }
-                else
-                {
-                    xRotation--;
-                    ModelTrans(Matrix.RotateX, -1);
-                    if(xRotation == 0)
-                    {
-                        phase = 3;
-                        xRotationForward = true;
-                    }
-                }
-                Invalidate();
-            }
-
-            // Phase 3
-            else if(phase == 3)
-            {
-                
-                Transformations.phi++;
-                if (yRotationForward)
-                {
-                    yRotation++;
-                    ModelTrans(Matrix.RotateY, 1);
-                    if (yRotation == 45)
-                        yRotationForward = false;
-                }
-                else
-                {
-                    yRotation--;
-                    ModelTrans(Matrix.RotateY, -1);
-                    if (yRotation == 0)
-                    {
-                        yRotationForward = true;
-                        phase = 4;
-                    }
-                }
-                Invalidate();
-            }
-
-            // Phase 4 (restore phi and theta)
-            else if(phase == 4)
-            {
-                if (Transformations.theta != -100)
-                    Transformations.theta++;
-                if (Transformations.phi != -10)
-                    Transformations.phi--;
-                if (Transformations.theta == -100 && Transformations.phi == -10)
-                    phase = 1;
-                Invalidate();
-            }
+	        // Phase 1
+	        switch (_phase)
+	        {
+		        case 1:
+			        if (_scale >= 1.5)
+				        _phase = 2;
+			        else
+			        {
+				        Transform(Matrix.Scale3D, 1.01f);
+				        Invalidate();
+				        Transformations.theta--;
+			        }
+			        break;
+		        case 2:
+			        Transformations.theta--;
+			        if (_xRotationForward)
+			        {
+				        _xRotation++;
+				        Transform(Matrix.RotateX, 1);
+				        if (_xRotation == 45)
+					        _xRotationForward = false;
+			        }
+			        else
+			        {
+				        _xRotation--;
+				        Transform(Matrix.RotateX, -1);
+				        if(_xRotation == 0)
+				        {
+					        _phase = 3;
+					        _xRotationForward = true;
+				        }
+			        }
+			        Invalidate();
+			        break;
+		        case 3:
+			        Transformations.phi++;
+			        if (_yRotationForward)
+			        {
+				        _yRotation++;
+				        Transform(Matrix.RotateY, 1);
+				        if (_yRotation == 45)
+					        _yRotationForward = false;
+			        }
+			        else
+			        {
+				        _yRotation--;
+				        Transform(Matrix.RotateY, -1);
+				        if (_yRotation == 0)
+				        {
+					        _yRotationForward = true;
+					        _phase = 4;
+				        }
+			        }
+			        Invalidate();
+			        break;
+		        case 4:
+			        if (Transformations.theta != -100)
+				        Transformations.theta++;
+			        if (Transformations.phi != -10)
+				        Transformations.phi--;
+			        if (Transformations.theta == -100 && Transformations.phi == -10)
+				        _phase = 1;
+			        Invalidate();
+			        break;
+	        }
         }
     }
 }

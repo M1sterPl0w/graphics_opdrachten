@@ -5,15 +5,11 @@ namespace Lecture3
 {
     public class AxisX
     {
-        private int size;
-
         public List<Vector> vb;
 
         public AxisX(int size = 100)
         {
-            this.size = size;
-
-            vb = new List<Vector>();
+			vb = new List<Vector>();
             vb.Add(new Vector(0, 0, 0));
             vb.Add(new Vector(size, 0, 0));
         }

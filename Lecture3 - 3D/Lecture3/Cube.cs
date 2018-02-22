@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Lecture3
 {
-    public class Cube
+	public class Cube
     {
         //          3----------2
         //         /|         /|
@@ -18,9 +14,8 @@ namespace Lecture3
         //      | /        | /                 /
         //      |/         |/                  y
         //      8----------5
-
-        private const int size = 1;
-        public List<Vector> vertexbuffer = new List<Vector>
+		
+        public List<Vector> Vertexbuffer = new List<Vector>
         {
             new Vector( 1.0f,  1.0f, 1.0f),     //1
             new Vector( 1.0f, -1.0f, 1.0f),     //2
@@ -43,13 +38,13 @@ namespace Lecture3
             new Vector(-1.2f,  1.2f, -1.2f)     //8
         };
 
-        Color col;
+        private Color _color;
 
-        public Cube(Color c) { col = c; }
+        public Cube(Color c) { _color = c; }
 
         public void Draw(Graphics g, List<Vector> vb)
         {
-            Pen pen = new Pen(col, 3f);
+            Pen pen = new Pen(_color, 3f);
             g.DrawLine(pen, vb[0].x, vb[0].y, vb[1].x, vb[1].y);    //1 -> 2
             g.DrawLine(pen, vb[1].x, vb[1].y, vb[2].x, vb[2].y);    //2 -> 3
             g.DrawLine(pen, vb[2].x, vb[2].y, vb[3].x, vb[3].y);    //3 -> 4

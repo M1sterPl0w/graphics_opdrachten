@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Lecture3
 {
-    public class Matrix
+	public class Matrix
     {
         public float[,] array;
 
@@ -22,7 +18,11 @@ namespace Lecture3
                       float m21, float m22, float m23,
                       float m31, float m32, float m33)
         {
-            this.array = new float[,] { { m11, m12, m13, 0 }, { m21, m22, m23, 0 }, { m31, m32, m33, 0 }, { 0, 0, 0, 1 } };
+            this.array = new float[,] {
+				{ m11, m12, m13, 0 },
+				{ m21, m22, m23, 0 },
+				{ m31, m32, m33, 0 },
+				{ 0, 0, 0, 1 } };
         }
 
         public static Matrix operator +(Matrix m1, Matrix m2)
@@ -75,6 +75,7 @@ namespace Lecture3
         {
             return m1 * f;
         }
+
         public static Matrix operator *(Matrix m1, Matrix m2)
         {
             if (m1.array.GetLength(1) != m2.array.GetLength(0))
@@ -190,4 +191,3 @@ namespace Lecture3
         }
     }
 }
-

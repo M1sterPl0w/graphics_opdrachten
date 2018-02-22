@@ -1,22 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Lecture3
 {
-    class AxisZ
+	public class AxisZ
     {
-        private int size;
-
         public List<Vector> vb;
 
         public AxisZ(int size = 100)
         {
-            this.size = size;
-
             vb = new List<Vector>();
             vb.Add(new Vector(0, 0, 0));
             vb.Add(new Vector(0, 0, size));
